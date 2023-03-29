@@ -1,5 +1,5 @@
-    // Comentario
-  linea 2;
-         let mut linea 3 = nada;
+b=7
 
-         remove espacio
+a = 32.4 *(-8.6 - b)/       6.1E-8
+
+d = a ^ b // Esto es un comentario
