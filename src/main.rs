@@ -1,18 +1,44 @@
-use std::fs;
+mod utils;
+
+use regex::Regex;
+use crate::utils::file;
 
 fn main() {
+    let re = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
+    assert!(re.is_match("2014-01-01"));
+
     let file_path = String::from("src/test.txt");
-    println!("Reading from file: {}", &file_path);
-    let contents = match read_from_file(&file_path) {
+    let contents = match file::read_from_file(&file_path) {
         Some(contents) => contents,
         None => String::from(""),
     };
-    println!("Contents: {}", contents);
+
+    let lines = file::get_lines(&contents);
+    let cleared_lines = file::clear_lines_first_chars(lines);
+
+    for line in cleared_lines {
+        print!("{}", line);
+    }
 }
 
-fn read_from_file(file_path: &String) -> Option<String> {
-    match fs::read_to_string(file_path) {
-        Ok(contents) => Some(contents),
-        Err(_) => None,
-    }
+pub enum TokenKind {
+    Integer,
+    Float,
+    Assign,
+    Plus,
+    Minus,
+    Asterisk,
+    Slash,
+    Percent,
+    Power,
+    LParen,
+    RParen,
+    Identifier,
+    Comment,
+    Spaces,
+}
+
+pub struct Token {
+    pub kind: TokenKind,
+    pub value: String,
 }
