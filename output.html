@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lexer Analyzer</title>
+    <meta name="description" content="LexerOutput" />
+    <meta name="author" content="AntonioNogueron" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <h1 class="h1-title">Highlited Code</h1>
+    <div class="code-container">
+      <code class="code-tag"><span id='span0' class='identifier'>b </span><span id='span1' class='operator'>= </span><span id='span2' class='integer'>7 </span><br/><br/><span id='span0' class='identifier'>a </span><span id='span1' class='operator'>= </span><span id='span2' class='float'>32.4 </span><span id='span3' class='operator'>* </span><span id='span4' class='special-symbol'>( </span><span id='span5' class='float'>8.6 </span><span id='span6' class='operator'>- </span><span id='span7' class='identifier'>b </span><span id='span8' class='special-symbol'>) </span><span id='span9' class='float'>6.1E-8 </span><br/><br/><span id='span0' class='identifier'>d </span><span id='span1' class='operator'>= </span><span id='span2' class='identifier'>a </span><span id='span3' class='operator'>^ </span><span id='span4' class='identifier'>b </span><span id='span5' class='comment'>// Esto es un comentario </span></code>
+    </div>
+    <div class="dashboardContainer">
+      <div class="dashboardBottom">
+        <table>
+          <thead>
+            <tr>
+              <th>Value</th>
+              <th>Token</th>
+            </tr>
+          </thead>
+          <tbody><tr key='0'><td>b</td><td>identifier</td></tr><tr key='1'><td>=</td><td>operator</td></tr><tr key='2'><td>7</td><td>integer</td></tr><tr key='0'><td>a</td><td>identifier</td></tr><tr key='1'><td>=</td><td>operator</td></tr><tr key='2'><td>32.4</td><td>float</td></tr><tr key='3'><td>*</td><td>operator</td></tr><tr key='4'><td>(</td><td>special-symbol</td></tr><tr key='5'><td>8.6</td><td>float</td></tr><tr key='6'><td>-</td><td>operator</td></tr><tr key='7'><td>b</td><td>identifier</td></tr><tr key='8'><td>)</td><td>special-symbol</td></tr><tr key='9'><td>6.1E-8</td><td>float</td></tr><tr key='0'><td>d</td><td>identifier</td></tr><tr key='1'><td>=</td><td>operator</td></tr><tr key='2'><td>a</td><td>identifier</td></tr><tr key='3'><td>^</td><td>operator</td></tr><tr key='4'><td>b</td><td>identifier</td></tr><tr key='5'><td>// Esto es un comentario</td><td>comment</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
