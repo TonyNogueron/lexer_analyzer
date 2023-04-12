@@ -99,20 +99,18 @@ pub fn tokenize_line(line: &String) -> Vec<Token> {
                 token.kind = TokenKind::Asterisk;
                 token.value.push(c);
             } else if c == '/' {
-                if token.kind != TokenKind::Spaces {
-                    if token.kind == TokenKind::Slash {
-                        token.kind = TokenKind::Comment;
-                        token.value.push(c);
-                    } else {
-                        tokens.push(token);
-                        token = Token {
-                            kind: TokenKind::Spaces,
-                            value: String::new(),
-                        };
-                    }
-                } else {
+                if token.kind == TokenKind::Spaces {
                     token.kind = TokenKind::Slash;
                     token.value.push(c);
+                } else if token.kind == TokenKind::Slash {
+                    token.kind = TokenKind::Comment;
+                    token.value.push(c);
+                } else {
+                    tokens.push(token);
+                    token = Token {
+                        kind: TokenKind::Spaces,
+                        value: String::new(),
+                    };
                 }
             } else if c == '%' {
                 if token.kind != TokenKind::Spaces {
@@ -182,7 +180,7 @@ pub fn tokenize_line(line: &String) -> Vec<Token> {
                     };
                     token.value.push(c);
                 }
-            } else if c.is_alphabetic() {
+            } else if c.is_alphabetic() || c == '_' {
                 if token.kind == TokenKind::Spaces {
                     token.kind = TokenKind::Identifier;
                     token.value.push(c);

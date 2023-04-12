@@ -10,13 +10,19 @@ use crate::utils::html_formatter;
 
 fn main() {
     let file_path = String::from("src/test.txt");
-    let cleared_lines = match file::get_cleared_lines_from_file(&file_path) {
+    lexer_aritmetico(&file_path);
+}
+
+
+fn lexer_aritmetico(file_name: &String) {
+    let cleared_lines = match file::get_cleared_lines_from_file(&file_name) {
         Some(cleared_lines) => cleared_lines,
-        None => return,
+        None => {
+            println!("Error reading file");
+            return;
+        }
     };
-    let mut tokenized_lines: Vec<Vec<Token>> = Vec::new();
-    for line in cleared_lines {
-        tokenized_lines.push(lexer::tokenize_line(&line));
-    }
+    let tokenized_lines: Vec<Vec<Token>> = cleared_lines.iter().map(|line| lexer::tokenize_line(&line)).collect();
     html_formatter::get_html(&tokenized_lines);
+    println!("Output file generated: output.html");
 }

@@ -4,24 +4,26 @@ use std::io::Write;
 use crate::utils::lexer::Token;
 use crate::utils::lexer::TokenKind;
 
-pub fn span_generator(token: &Token, id: usize) -> String {
+fn span_generator(token: &Token, id: usize) -> String {
     let mut span = String::new();
     if token.kind == TokenKind::LineBreak {
         span.push_str("<br/>");
+    } else if token.kind == TokenKind::Comment {
+        span.push_str(&format!("<span id='span{}' class='{}'>{}</span><br/>", id, get_class_name(&token), token.value.clone()));
     } else {
         span.push_str(&format!("<span id='span{}' class='{}'>{}</span>", id, get_class_name(&token), token.value.clone() + " "));
     }
     span
 }
 
-pub fn tr_generator(token: &Token, id: usize) -> Option<String> {
+fn tr_generator(token: &Token, id: usize) -> Option<String> {
     let mut tr = String::new();
     if token.kind == TokenKind::LineBreak {
         return None;
     }
     tr.push_str(&format!("<tr key='{}'>", id));
     tr.push_str(&format!("<td>{}</td>", token.value));
-    tr.push_str(&format!("<td>{}</td>", get_class_name(&token)));
+    tr.push_str(&format!("<td>{}</td>", get_class_name_spanish(&token)));
     tr.push_str("</tr>");
     Some(tr)
 }
@@ -44,6 +46,28 @@ fn get_class_name(token: &Token) -> String {
         TokenKind::Spaces => "spaces",
         TokenKind::SemiColon => "semicolon",
         TokenKind::LineBreak => "linebreak",
+    };
+    String::from(token_kind)
+}
+
+fn get_class_name_spanish(token: &Token) -> String {
+    let token_kind = match token.kind {
+        TokenKind::Integer => "Entero",
+        TokenKind::Float => "Flotante",
+        TokenKind::Assign => "Asignación",
+        TokenKind::Plus => "Suma",
+        TokenKind::Minus => "Resta",
+        TokenKind::Asterisk => "Multiplicación",
+        TokenKind::Slash => "División",
+        TokenKind::Percent => "Módulo",
+        TokenKind::Power => "Potencia",
+        TokenKind::LParen => "Paréntesis de apertura",
+        TokenKind::RParen => "Paréntesis de cierre",
+        TokenKind::Identifier => "Identificador",
+        TokenKind::Comment => "Comentario",
+        TokenKind::Spaces => "Espacios",
+        TokenKind::SemiColon => "Punto y coma",
+        TokenKind::LineBreak => "Salto de línea",
     };
     String::from(token_kind)
 }
